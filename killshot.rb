@@ -26,9 +26,9 @@ $count = 0
 
 def hotlink?(img)
   src  = img["src"]
-  host = URI(src).host
+  uri = URI(URI::escape(src))
   # Check if absolute, ignore relative links
-  !$whitelist.member?(host)
+  uri.absolute? && !$whitelist.member?(uri.host)
 end
 
 def show_hotlink(page, img)

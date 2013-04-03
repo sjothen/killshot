@@ -10,6 +10,8 @@ Example usage:
 $ ruby killshot.rb --root http://www.example.com --whitelist example.com www.example.com
 ```
 
+Note: Root host will be used as the default whitelist if none is specified.
+
 ### Options
 
 ```

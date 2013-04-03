@@ -19,7 +19,9 @@ EOS
 end
 
 Trollop::die :root, "must be given" if opts[:root].nil?
-Trollop::die :whitelist, "must be given" if opts[:whitelist].nil?
+
+default_whitelist = Array(URI(opts[:root]).host)
+opts[:whitelist] = default_whitelist if opts[:whitelist].nil?
 
 $whitelist = Set.new(opts[:whitelist])
 $count = 0

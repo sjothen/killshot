@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+
+require 'trollop'
+require 'uri'
+
+opts = Trollop::options do
+  version "killshot 0.0.1 (c) Stephen Michael Jothen"
+  banner <<-EOS
+Killshot helps you find, and kill any hotlinks on a given domain.
+
+Usage:
+EOS
+
+  opt :root, "URL where we start crawling", :type => :string
+  opt :whitelist, "List of allowed domains", :type => :strings
+end
+
+Trollop::die :root, "must be given" if opts[:root].nil?
+
+default_whitelist = Array(URI(opts[:root]).host)
+opts[:whitelist] = default_whitelist if opts[:whitelist].nil?
+
+require 'killshot'
+
+Killshot::Crawler.new(opts)
+

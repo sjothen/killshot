@@ -7,8 +7,15 @@ require "uri"
 require "set"
 
 opts = Trollop::options do
+  version "killshot 0.0.1 (c) Stephen Michael Jothen"
+  banner <<-EOS
+Killshot helps you find, and kill any hotlinks on a given domain.
+
+Usage:
+EOS
+
   opt :root, "URL where we start crawling", :type => :string
-  opt :allowed, "Comma separated list of allowed domains", :type => :strings
+  opt :allowed, "List of allowed domains", :type => :strings
 end
 
 Trollop::die :root, "must be given" if opts[:root].nil?

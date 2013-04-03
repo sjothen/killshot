@@ -15,13 +15,13 @@ Usage:
 EOS
 
   opt :root, "URL where we start crawling", :type => :string
-  opt :allowed, "List of allowed domains", :type => :strings
+  opt :whitelist, "List of allowed domains", :type => :strings
 end
 
 Trollop::die :root, "must be given" if opts[:root].nil?
-Trollop::die :allowed, "must be given" if opts[:allowed].nil?
+Trollop::die :whitelist, "must be given" if opts[:whitelist].nil?
 
-$allowed = Set.new(opts[:allowed])
+$whitelist = Set.new(opts[:whitelist])
 $count = 0
 
 def hotlink?(img)
@@ -29,7 +29,7 @@ def hotlink?(img)
   # Check if absolute, ignore relative links
   if src =~ %r"^http://"
     host = URI(src).host
-    return (not $allowed.member?(host))
+    return (not $whitelist.member?(host))
   else
     return false
   end

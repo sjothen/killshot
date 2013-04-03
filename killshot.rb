@@ -25,14 +25,10 @@ $whitelist = Set.new(opts[:whitelist])
 $count = 0
 
 def hotlink?(img)
-  src = img["src"]
+  src  = img["src"]
+  uri = URI(URI::escape(src))
   # Check if absolute, ignore relative links
-  if src =~ %r"^http://"
-    host = URI(src).host
-    return (not $whitelist.member?(host))
-  else
-    return false
-  end
+  uri.absolute? && !$whitelist.member?(uri.host)
 end
 
 def show_hotlink(page, img)

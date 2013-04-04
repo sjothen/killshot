@@ -22,4 +22,4 @@ opts[:whitelist] = default_whitelist if opts[:whitelist].nil?
 
 require 'killshot'
 
-Killshot::Crawler.new(opts)
+Killshot::Crawler.new(opts).crawl!

@@ -15,8 +15,6 @@ module Killshot
       @opts      = opts
       @whitelist = Set.new(opts[:whitelist])
       @count     = 0
-
-      crawl!
     end
 
     def crawl!

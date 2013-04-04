@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    killshot (0.0.1)
+    killshot (0.0.2)
       anemone
       colored
       nokogiri

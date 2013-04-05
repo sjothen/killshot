@@ -9,7 +9,6 @@ require 'set'
 module Killshot
   class Crawler
     attr_reader :root, :whitelist
-    attr_accessor :hotlinks
 
     def initialize(root, whitelist)
       @root      = root
@@ -24,7 +23,7 @@ module Killshot
         end
       end
 
-      puts "Done. Found #{hotlinks.length} hotlinked images!"
+      puts "Done. Found #{@hotlinks.length} hotlinked images!"
     end
 
     private
@@ -41,8 +40,8 @@ module Killshot
       url = page.url.to_s.green
       img = img['src'].red
 
-      hotlinks << src
-      puts "#{hotlinks.length}. #{img} from #{url}"
+      @hotlinks << src
+      puts "#{@hotlinks.length}. #{img} from #{url}"
     end
 
     def find_hotlinks(page)

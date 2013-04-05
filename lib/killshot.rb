@@ -8,47 +8,46 @@ require 'set'
 
 module Killshot
   class Crawler
-    attr_reader :opts, :whitelist
-    attr_accessor :count
+    attr_reader :root, :whitelist
 
-    def initialize(opts)
-      @opts      = opts
-      @whitelist = Set.new(opts[:whitelist])
-      @count     = 0
+    def initialize(root, whitelist)
+      @root      = root
+      @whitelist = Set.new(whitelist)
+      @hotlinks  = []
     end
 
     def crawl!
-      Anemone.crawl(opts[:root]) do |anemone|
+      Anemone.crawl(root) do |anemone|
         anemone.on_every_page do |page|
           find_hotlinks(page)
         end
       end
 
-      puts "Done. Found #{count} hotlinked images!"
+      puts "Done. Found #{@hotlinks.length} hotlinked images!"
     end
 
     private
 
     def hotlink?(img)
-      src  = img["src"]
+      src  = img['src']
       uri = URI(URI::escape(src))
       # Check if absolute, ignore relative links
       uri.absolute? && !whitelist.member?(uri.host)
     end
 
-    def show_hotlink(page, img)
+    def hotlink_found(page, img)
+      src = img['src']
       url = page.url.to_s.green
-      img = img["src"].red
-      puts "#{count}. #{img} from #{url}"
+      img = img['src'].red
+
+      @hotlinks << src
+      puts "#{@hotlinks.length}. #{img} from #{url}"
     end
 
-    def find_hotlinks(p)
-      doc = Nokogiri::HTML(p.body)
+    def find_hotlinks(page)
+      doc = Nokogiri::HTML(page.body)
       doc.xpath("//img").each do |img|
-        if hotlink?(img)
-          @count += 1
-          show_hotlink(p, img)
-        end
+        hotlink_found(page, img) if hotlink?(img)
       end
     end
   end

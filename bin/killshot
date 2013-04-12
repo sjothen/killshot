@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'trollop'
+require 'colored'
 require 'uri'
 
 opts = Trollop::options do
@@ -22,4 +23,9 @@ opts[:whitelist] = default_whitelist if opts[:whitelist].nil?
 
 require 'killshot'
 
-Killshot::Crawler.new(opts[:root], opts[:whitelist]).crawl!
+crawler = Killshot::Crawler.new(opts[:root], opts[:whitelist])
+printer = Killshot::Printer.new
+
+printer.start
+crawler.crawl { |url, img| printer.print(url, img) }
+printer.finish

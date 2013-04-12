@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['sjothen@gmail.com']
   spec.description   = %q{Find hotlinks on a given domain}
   spec.summary       = %q{Killshot idenfities any hotlinks on a given domain against a user specified whitelist}
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/sjothen/killshot'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)

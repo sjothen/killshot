@@ -2,7 +2,6 @@ require "rubygems"
 require "minitest/autorun"
 require "killshot"
 
-
 # Modified from http://blog.jayfields.com/2007/11/ruby-testing-private-methods.html
 class Class
   def publicize

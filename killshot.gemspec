@@ -20,8 +20,8 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '~> 1.3'
   spec.add_development_dependency 'rake'
-  spec.add_dependency 'anemone'
-  spec.add_dependency 'trollop'
-  spec.add_dependency 'nokogiri'
-  spec.add_dependency 'colored'
+  spec.add_dependency 'anemone', ">= 0.7.2"
+  spec.add_dependency 'trollop', ">= 2.0"
+  spec.add_dependency 'nokogiri', ">= 1.5.9"
+  spec.add_dependency 'colored', ">= 1.2"
 end
